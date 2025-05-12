@@ -1,5 +1,5 @@
 {
-  "name": "ativ_15_04",
+  "name": "carrinho_prof",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "vue": "^3.5.13"
   },
   "devDependencies": {
