@@ -15,7 +15,7 @@
     </section>
 </template>
 
-<style>
+<style scoped>
 .featured {
   display: flex;
   padding: 3vh 8vw;

@@ -19,7 +19,7 @@
     </section>
 </template>
 
-<style>
+<style scoped>
 .hero {
   display: flex;
   justify-content: space-between;
