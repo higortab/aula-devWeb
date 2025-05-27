@@ -14,7 +14,6 @@
         <button>Acessar página do livro</button>
       </div>
       <div class="hero-image">
-        <img src="/hero.png" alt="Hero Image" />
       </div>
     </section>
 </template>

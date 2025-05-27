@@ -10,18 +10,18 @@ defineEmits(['click-cart'])
 <header>
     <nav>
       <h1>
-        <a href="#">
+        <RouterLink to="/">
           IFbooks
           <span class="logo-title"> Apreço a livros </span>
-        </a>
+        </RouterLink>
       </h1>
       <div class="search-wrapper">
         <input type="text" class="search" placeholder="Buscar..." />
       </div>
       <ul>
         <li>Termos</li>
-        <li>Equipe</li>
-        <li>Envio</li>
+        <li><RouterLink to="/equipe">Equipe</RouterLink></li>
+        <li><RouterLink to="/curtidos">Curtidos</RouterLink></li>
         <li>Devoluções</li>
       </ul>
       <ul class="icons">
@@ -48,7 +48,7 @@ header nav {
 
     & a {
       text-decoration: none;
-      color: #000;
+      color: #181818;
       display: flex;
       align-items: center;
     }
