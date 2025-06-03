@@ -5,7 +5,9 @@
   import HeroComponent from '@/components/HeroComponent.vue'
   import FeaturedComponent from '@/components/FeaturedComponent.vue'
 
-  const showCart = ref(false)
+  import { userCartStore } from '@/stores/cart'
+  const cartStore = userCartStore()
+
 const cart = ref({
   items: [],
   total: 0,
@@ -71,10 +73,10 @@ const books = [
 </script>
 
 <template>
-  <main v-if="showCart">
+  <main v-if="cartStore.showCart">
     <CartComponent
     :cart="cart"
-    @click-cart="showCart = !showCart"
+    @click-cart="cartStore.showCart = !showCart"
     @increment-book="incrementBookToCart"
     @decrement-book="decrementBookToCart"/>
   </main>

@@ -1,5 +1,5 @@
 {
-  "name": "carrinho_prof",
+  "name": "exercicio_prova",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,10 +11,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@mdi/font": "^7.4.47",
-    "pinia": "^3.0.2",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

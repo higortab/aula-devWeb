@@ -1,6 +1,8 @@
 
 <script setup>
 defineEmits(['click-cart'])
+import { userCartStore } from '@/stores/cart';
+const cartStore = userCartStore()
 
 
 </script>
@@ -25,7 +27,7 @@ defineEmits(['click-cart'])
         <li>Devoluções</li>
       </ul>
       <ul class="icons">
-        <li @click="$emit('click-cart')"><span class="mdi mdi-cart"></span></li>
+        <li @click="cartStore.showCart = !cartStore.showCart"></li>
         <li><span class="mdi mdi-heart"></span></li>
         <li><span class="mdi mdi-account"></span></li>
       </ul>
