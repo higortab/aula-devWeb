@@ -1,15 +1,13 @@
-
 <script setup>
-defineEmits(['click-cart'])
-import { userCartStore } from '@/stores/cart';
-const cartStore = userCartStore()
+import { useCartStore } from "@/stores/cart";
+import { useBooksStore } from "@/stores/books";
 
-
+const cartStore = useCartStore()
+const booksStore = useBooksStore()
 </script>
 
 <template>
-
-<header>
+    <header>
     <nav>
       <h1>
         <RouterLink to="/">
@@ -18,25 +16,24 @@ const cartStore = userCartStore()
         </RouterLink>
       </h1>
       <div class="search-wrapper">
-        <input type="text" class="search" placeholder="Buscar..." />
+        <input type="text" class="search" v-model="booksStore.filter" placeholder="Buscar..." />
       </div>
       <ul>
         <li>Termos</li>
-        <li><RouterLink to="/equipe">Equipe</RouterLink></li>
-        <li><RouterLink to="/curtidos">Curtidos</RouterLink></li>
+        <li>Equipe</li>
+        <li>Envio</li>
         <li>Devoluções</li>
       </ul>
       <ul class="icons">
-        <li @click="cartStore.showCart = !cartStore.showCart"></li>
+        <li @click="cartStore.showCart = !cartStore.showCart"><span class="mdi mdi-cart"></span></li>
         <li><span class="mdi mdi-heart"></span></li>
         <li><span class="mdi mdi-account"></span></li>
       </ul>
     </nav>
   </header>
-
 </template>
 
-<style>
+<style scoped>
 header nav {
   display: flex;
   justify-content: space-between;
@@ -50,7 +47,7 @@ header nav {
 
     & a {
       text-decoration: none;
-      color: #181818;
+      color: #000;
       display: flex;
       align-items: center;
     }
