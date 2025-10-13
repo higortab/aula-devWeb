@@ -8,6 +8,19 @@
     const response = await api.get('genre/tv/list?language=pt-BR');
     genres.value = response.data.genres;
   });
+
+  const series = ref([]);
+
+    const listSeries = async (genreId) => {
+      const response = await api.get('discover/series', {
+          params: {
+              with_genres: genreId,
+              language: 'pt-BR'
+          }
+      });
+      series.value = response.data.results
+  };
+
 </script>
 
 <template>
@@ -17,6 +30,18 @@
       {{ genre.name }}
     </li>
   </ul>
+
+  <div class="serie-list">
+
+    <div v-for="serie in series" :key="serie.id" class="serie-card">
+      <img
+      :src="`https://image.tmdb.org/t/p/w500${serie.poster_path}`"
+      :alt="serie.title"
+    />
+    </div>
+
+  </div>
+
 </template>
 
 <style scoped>

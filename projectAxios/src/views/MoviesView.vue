@@ -25,18 +25,14 @@
 <template>
   <h1>Filmes</h1>
   <ul class="genre-list">
-    <li v-for="genre in genres" :key="genre.id" class="genre-item">
-      {{ genre.name }}
-    </li>
-
-      <li
+   <li
     v-for="genre in genres"
     :key="genre.id"
     @click="listMovies(genre.id)"
     class="genre-item"
-  >
+    >
     {{ genre.name }}
-  </li>
+    </li>
   </ul>
 
 <div class="movie-list">
