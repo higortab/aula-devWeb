@@ -3,7 +3,9 @@ import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 import Loading from 'vue-loading-overlay';
 import { useGenreStore } from '@/stores/genre';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const genreStore = useGenreStore();
 const isLoading = ref(false);
 const genres = ref([]);
@@ -19,21 +21,25 @@ onMounted(async () => {
 
 
 const listMovies = async (genreId) => {
+  genreStore.setCurrentGenreId(genreId);
   isLoading.value = true;
-    const response = await api.get('discover/movie', {
-      params: {
-        with_genres: genreId,
-        language: 'pt-BR'
-      }
-    });
-    movies.value = response.data.results;
-    isLoading.value = false;
-
+  const response = await api.get('discover/movie', {
+    params: {
+      with_genres: genreId,
+      language: 'pt-BR',
+    },
+  });
+  movies.value = response.data.results;
+  isLoading.value = false;
 };
 
 function getGenreName(id) {
   const genero = genres.value.find((genre) => genre.id === id);
   return genero.name;
+}
+
+function openMovie(movieId) {
+  router.push({ name: 'MovieDetails', params: { movieId } });
 }
 </script>
 
@@ -45,21 +51,23 @@ function getGenreName(id) {
 
 <div class="genre-list">
   <span
-    v-for="genre in genres"
+    v-for="genre in genreStore.genres"
     :key="genre.id"
     @click="listMovies(genre.id)"
+    class="genre-item"
+    :class="{ active: genre.id === genreStore.currentGenreId }"
   >
     {{ genre.name }}
   </span>
 </div>
 
-
   <div class="movie-list">
     <div v-for="movie in movies" :key="movie.id" class="movie-card">
-      <img
-        :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-        :alt="movie.title"
-      />
+        <img
+          :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+          :alt="movie.title"
+          @click="openMovie(movie.id)"
+        />
       <div class="movie-details">
         <p class="movie-title">{{ movie.title }}</p>
         <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
@@ -149,5 +157,16 @@ function getGenreName(id) {
   font-weight: bold;
   margin-top: 2%;
   margin-left: 2%;
+}
+
+.active {
+  background-color: #67b086;
+  font-weight: bolder;
+}
+
+.movie-genres span.active {
+  background-color: #abc322;
+  color: #000;
+  font-weight: bolder;
 }
 </style>
