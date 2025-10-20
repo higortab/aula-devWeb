@@ -2,20 +2,24 @@
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 import Loading from 'vue-loading-overlay';
+import { useGenreStore } from '@/stores/genre';
 
+const genreStore = useGenreStore();
 const isLoading = ref(false);
 const genres = ref([]);
 const movies = ref([]);
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 
 onMounted(async () => {
-  const response = await api.get('genre/movie/list?language=pt-BR');
-  genres.value = response.data.genres;
+  isLoading.value = true;
+  await genreStore.getAllGenres('movie');
+  genres.value = genreStore.genres;
+  isLoading.value = false;
 });
+
 
 const listMovies = async (genreId) => {
   isLoading.value = true;
-  try {
     const response = await api.get('discover/movie', {
       params: {
         with_genres: genreId,
@@ -23,9 +27,8 @@ const listMovies = async (genreId) => {
       }
     });
     movies.value = response.data.results;
-  } finally {
     isLoading.value = false;
-  }
+
 };
 
 function getGenreName(id) {
@@ -40,15 +43,16 @@ function getGenreName(id) {
   <loading v-model:active="isLoading" is-full-page />
 
 
-  <p class="movie-genres">
-    <span
-      v-for="genre in genres"
-      :key="genre.id"
-      @click="listMovies(genre.id)"
-    >
-      {{ genre.name }}
-    </span>
-  </p>
+<div class="genre-list">
+  <span
+    v-for="genre in genres"
+    :key="genre.id"
+    @click="listMovies(genre.id)"
+  >
+    {{ genre.name }}
+  </span>
+</div>
+
 
   <div class="movie-list">
     <div v-for="movie in movies" :key="movie.id" class="movie-card">
@@ -70,7 +74,7 @@ function getGenreName(id) {
 </template>
 
 <style scoped>
-.movie-genres {
+.genre-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -81,7 +85,7 @@ function getGenreName(id) {
   margin-top: 2%;
 }
 
-.movie-genres span {
+.genre-list span {
   background-color: #748708;
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
@@ -90,7 +94,7 @@ function getGenreName(id) {
   font-weight: bold;
 }
 
-.movie-genres span:hover {
+.genre-list span:hover {
   cursor: pointer;
   background-color: #455a08;
   box-shadow: 0 0 0.5rem #748708;
@@ -118,7 +122,7 @@ function getGenreName(id) {
 }
 
 .movie-details {
-  padding: 0 0.5rem;
+  padding: 2%;
 }
 
 .movie-title {
@@ -126,5 +130,24 @@ function getGenreName(id) {
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
+}
+
+.movie-details .movie-genres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.movie-details .movie-genres span {
+  background-color: #748708;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 2%;
+  margin-left: 2%;
 }
 </style>
