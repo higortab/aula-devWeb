@@ -80,4 +80,36 @@
     background-color: #7d8a2e;
     box-shadow: 0 0 0.5rem #5d6424;
   }
+
+  .tv-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tv-card {
+  width: 15rem;
+  height: 30rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 0.5rem #000;
+}
+
+.tv-card img {
+  width: 100%;
+  height: 20rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem #000;
+}
+
+.serie-details {
+  padding: 0 0.5rem;
+}
+
+.serie-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 1.3rem;
+  height: 3.2rem;
+}
 </style>
