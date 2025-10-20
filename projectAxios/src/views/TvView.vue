@@ -12,7 +12,7 @@
   const series = ref([]);
 
     const listSeries = async (genreId) => {
-      const response = await api.get('discover/series', {
+      const response = await api.get('discover/tv', {
           params: {
               with_genres: genreId,
               language: 'pt-BR'
@@ -26,18 +26,29 @@
 <template>
   <h1>Programas de TV</h1>
   <ul class="genre-list">
-    <li v-for="genre in genres" :key="genre.id" class="genre-item">
-      {{ genre.name }}
+     <li
+    v-for="genre in genres"
+    :key="genre.id"
+    @click="listSeries(genre.id)"
+    class="genre-item"
+    >
+    {{ genre.name }}
     </li>
   </ul>
 
-  <div class="serie-list">
+  <div class="tv-list">
 
-    <div v-for="serie in series" :key="serie.id" class="serie-card">
+    <div v-for="tv in series" :key="tv.id" class="tv-card">
       <img
-      :src="`https://image.tmdb.org/t/p/w500${serie.poster_path}`"
-      :alt="serie.title"
+      :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`"
+      :alt="tv.title"
     />
+
+       <div class="serie-details">
+      <p class="serie-title">{{ tv.original_name}}</p>
+      <p class="serie-release-date">{{ tv.first_air_date}}</p>
+      <p class="serie-genres">{{ tv.genre_ids }}</p>
+    </div>
     </div>
 
   </div>
