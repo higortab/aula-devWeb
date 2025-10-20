@@ -1,3 +1,4 @@
+import 'vue-loading-overlay/dist/css/index.css';
 import './assets/main.css';
 import { createApp } from 'vue';
 import App from './App.vue';
