@@ -124,6 +124,7 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .tv-card {
